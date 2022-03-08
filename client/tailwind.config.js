@@ -1,7 +1,13 @@
 module.exports = {
-  content: [],
+  content: [
+    'src/components/Header.js',
+    'src/components/Contact.js',
+    'src/components/Footer.js',
+  ],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 }
