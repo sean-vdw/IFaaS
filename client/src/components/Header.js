@@ -3,8 +3,8 @@ import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 
 const navigation = [
-  { name: 'Overview', href: '#' },
-  { name: 'Economy', href: '#' },
+  { name: 'Overview', href: '#overview' },
+  { name: 'Macro', href: '#macro' },
   { name: 'Screener', href: '#' },
   { name: 'Hedge', href: '#' },
 ];
@@ -50,7 +50,7 @@ export default function Header() {
                       {item.name}
                     </a>
                   ))}
-                  <a href="#" className="font-medium text-slate-600 hover:text-slate-500">
+                  <a href="#" className="font-medium text-slate-900 hover:text-slate-500">
                     Contact
                   </a>
                 </div>

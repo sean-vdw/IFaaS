@@ -1,6 +1,6 @@
 export default function Overview() {
   return (
-    <div className="relative py-16 my-28 bg-white overflow-hidden">
+    <div id="overview" className="relative py-24 mt-0 mb-14 bg-slate-100 overflow-hidden">
       <div className="hidden lg:block lg:absolute lg:inset-y-0 lg:h-full lg:w-full">
         <div className="relative h-full text-lg max-w-prose mx-auto" aria-hidden="true">
           <svg
@@ -33,13 +33,11 @@ export default function Overview() {
               Introducing
             </span>
             <span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-              IFaas: For Growth Investing
+              IFaaS: Growth Investing
             </span>
           </h1>
-          <p className="mt-8 text-xl text-gray-500 leading-8">
-            Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget
-            aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend
-            egestas fringilla sapien.
+          <p className="mt-8 text-xl text-center text-gray-500 leading-8">
+            The process of monitoring macroeconomic environments, fundamental business metrics, and technical components for hedging is incredibly time consuming. The IFaaS framework for growth investing automates and summarizes each of these points so you can make faster, well-informed decisions. 
           </p>
         </div>
       </div>
