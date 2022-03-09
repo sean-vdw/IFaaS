@@ -5,6 +5,8 @@ import { Route } from 'react-router-dom';
 import Header from './components/Header';
 import Overview from './components/Overview';
 import Macro from './components/Macro';
+import Screener from './components/Screener';
+import Hedge from './components/Hedge';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
@@ -14,6 +16,8 @@ function App() {
       <Header />
       <Overview />
       <Macro />
+      <Screener />
+      <Hedge />
       <Contact />
       <Footer />
     </Route>
