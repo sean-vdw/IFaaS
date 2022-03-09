@@ -12,7 +12,7 @@ export default function Hedge() {
             </span>
           </h1>
           <p className="mt-8 text-xl text-center text-gray-500 leading-8">
-            Using this framework, a hedge entails selling a benchmark short. In this case, the Ark Funds' Innovation ETF, ARKK. We want to short this benchmark when:
+            Using this framework, a hedge entails selling a benchmark-based ETF short. In this case, the Ark Funds' Innovation ETF, ARKK. We want to short this benchmark when:
           </p>
           <ol role="list" className="list-decimal list-inside text-base text-center mt-4">
             <li className="my-2">The price is under the 50D EMA (shaded yellow region) AND</li>
@@ -22,7 +22,7 @@ export default function Hedge() {
         <div className="w-full md:w-11/12 mx-auto mt-10"> 
           <iframe 
             className="w-full h-96 my-10"
-            src="https://app.koyfin.com/share/412773bbfd/simple"
+            src="https://app.koyfin.com/share/43d1bbd766/simple"
             frameBorder="0">
           </iframe>
         </div>
