@@ -48,7 +48,7 @@ export default function Header() {
                       {item.name}
                     </a>
                   ))}
-                  <a href="#" className="font-medium text-slate-900 hover:text-slate-500">
+                  <a href="#contact" className="font-medium text-slate-900 hover:text-slate-500">
                     Contact
                   </a>
                 </div>

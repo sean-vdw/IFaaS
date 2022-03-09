@@ -9,7 +9,7 @@ export default function Contact() {
   const [agreed, setAgreed] = useState(false)
 
   return (
-    <div className="bg-slate-100 py-16 px-4 overflow-hidden sm:px-6 lg:px-8 lg:py-24">
+    <div id="contact" className="bg-slate-100 py-16 px-4 overflow-hidden sm:px-6 lg:px-8 lg:py-24">
       <div className="relative max-w-xl mx-auto">
         <svg
           className="absolute right-full bottom-0 transform -translate-x-1/2"
