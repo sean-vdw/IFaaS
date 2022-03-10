@@ -1,23 +1,37 @@
-const companies = [
-  { 
-    name: 'Snowflake', 
-    ticker: 'SNOW',
-    revGrowth: 0.95,
-    grossMargin: 0.83,
-    rule40: 1.78,
-    salesEfficiency: 0.92,
-    contributionMargin: 0.76 
-  },
-];
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-// Metrics to include:
-// Revenue Growth, Gross Margins, Rule of 40, Sales Efficiency, Contribution Margin
-// GM: (rev - COGS) / rev
-// R40: rev growth rate + FCF margin
-// SalesEff: (Gross profit 2 - Gross profit 1)/ Sales & Marketing expenses 1
-// Contr Margin: (rev - variable costs) / revenue 
+// IEX Cloud Base Url & API Key
+const BASE_URL = 'https://financialmodelingprep.com';
+const API_KEY = '936221e841072d6447af578a83ef7350' || process.env.API_KEY;
+
+// Stock tickers of interest
+const tickers = ['SPT', 'TENB', 'API', 'QLYS', 'TWOU', 'SQ', 'WDAY', 'NCNO', 'APPF', 'VMEO', 'BOX', 'ZEN', 'PLAN', 'CXM', 'FROG', 'CRM', 'ZI', 'PCTY', 'NOW', 'ADBE', 'XM', 'SQSP', 'AVLR', 'CRWD', 'CWAN', 'PYPL', 'DH', 'DOCN', 'WIX', 'BL', 'COUP', 'OKTA', 'PAYC', 'QTWO', 'AI', 'NEWR', 'DOMO', 'ESTC', 'NET', 'WK', 'RSKD', 'LAW', 'DBX', 'VTEX', 'PD', 'ENFN', 'SUMO', 'SMAR', 'ZUO', 'DDOG', 'FRSH', 'PCOR', 'TEAM', 'HUBS', 'DOCU', 'AMPL', 'VEEV', 'SHOP', 'TWLO', 'ZM', 'BILL', 'BLND', 'PATH', 'S', 'BIGC', 'ZS', 'OLO', 'FSLY', 'EVBG', 'RNG', 'SNOW', 'YEXT', 'ASAN', 'MNDY', 'CFLT', 'GTLB'];
+
+// Companies and metrics to be displayed in screener table
+const companies = [];
 
 export default function Screener() {
+  const [loading, setLoading] = useState(false);
+
+  // Handle get company financials
+  const handleGetFinancials = async () => {
+    setLoading(true);
+    try {
+      for (let i = 0; i < tickers.length; i++) {
+        const resp = await axios.get(`${BASE_URL}/api/v3/financial-growth/${tickers[i]}?apikey=${API_KEY}&limit=1`)
+          .then(res => {
+            if (res.data[0].revenueGrowth > 0.30 && res.data[0].freeCashFlowGrowth > 0.10) {
+              companies.push(res.data[0])
+            }
+          })
+      }
+    } catch (err) {
+      console.log(err)
+    }
+    setLoading(false);
+  }
+
   return (
     <div id="screener" className="relative py-16 bg-slate-100 w-full overflow-hidden">
       <div className="relative px-4 sm:px-6 lg:px-8">
@@ -35,24 +49,27 @@ export default function Screener() {
           </p>
         </div>
         <div className="text-lg w-full md:w-11/12 mx-auto mt-10">
+          <div className="flex justify-start mb-4">
+            <button
+              type="button"
+              onClick={handleGetFinancials}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Update List
+            </button>
+          </div>
           <div className="flex flex-col">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                  <table className="min-w-full divide-y divide-gray-200">
+                  <table className = {`min-w-full divide-y divide-gray-200 ${loading ? 'animate-pulse' : null}`}>
                     <thead className="bg-gray-50">
                       <tr>
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Name
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Ticker
+                          Symbol
                         </th>
                         <th
                           scope="col"
@@ -64,38 +81,37 @@ export default function Screener() {
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Gross Margin (%)
+                          FCF Growth (%)
                         </th>
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Rule of 40
+                          Gross Profit Growth (%)
                         </th>
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Sales Efficiency
+                          EBIT Growth (%)
                         </th>
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Contribution Margin (%)
+                          EPS Growth (%)
                         </th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                       {companies.map((company) => (
-                        <tr key={company.email}>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{company.name}</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company.ticker}</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company.revGrowth}</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company.grossMargin}</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company.rule40}</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company.salesEfficiency}</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company.contributionMargin}</td>
+                        <tr key={company.symbol}>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{company.symbol}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{(company.revenueGrowth * 100).toFixed(2)}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{(company.freeCashFlowGrowth * 100).toFixed(2)}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{(company.grossProfitGrowth * 100).toFixed(2)}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{(company.ebitgrowth * 100).toFixed(2)}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{(company.epsgrowth * 100).toFixed(2)}</td>
                         </tr>
                       ))}
                     </tbody>
