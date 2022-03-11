@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
+import { RefreshIcon } from '@heroicons/react/outline';
 
 // IEX Cloud Base Url & API Key
 const BASE_URL = 'https://financialmodelingprep.com';
@@ -14,16 +15,20 @@ const companies = [];
 export default function Screener() {
   const [loading, setLoading] = useState(false);
 
+  // delay function to accommodate API rate limits
+  const delay = async (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms));
+
   // Handle get company financials
   const handleGetFinancials = async () => {
     setLoading(true);
     try {
       for (let i = 0; i < tickers.length; i++) {
         const resp = await axios.get(`${BASE_URL}/api/v3/financial-growth/${tickers[i]}?apikey=${API_KEY}&limit=1`)
+        console.log(resp.data[0])
         if (resp.data[0].revenueGrowth > 0.30 && resp.data[0].freeCashFlowGrowth > 0.10) {
           companies.push(resp.data[0]);
-          setTimeout(() => 2000);
         }
+        await delay();
       }
     } catch (err) {
       console.log(err)
@@ -54,7 +59,7 @@ export default function Screener() {
               onClick={handleGetFinancials}
               className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
-              Update List
+              Update List <RefreshIcon className={`ml-2 h-5 w-5 ${loading ? 'animate-spin' : null}`} />
             </button>
           </div>
           <div className="flex flex-col">
