@@ -20,12 +20,10 @@ export default function Screener() {
     try {
       for (let i = 0; i < tickers.length; i++) {
         const resp = await axios.get(`${BASE_URL}/api/v3/financial-growth/${tickers[i]}?apikey=${API_KEY}&limit=1`)
-          .then(res => {
-            if (res.data[0].revenueGrowth > 0.30 && res.data[0].freeCashFlowGrowth > 0.10) {
-              companies.push(res.data[0]);
-              setTimeout(() => 2000);
-            }
-          })
+        if (resp.data[0].revenueGrowth > 0.30 && resp.data[0].freeCashFlowGrowth > 0.10) {
+          companies.push(resp.data[0]);
+          setTimeout(() => 2000);
+        }
       }
     } catch (err) {
       console.log(err)
