@@ -16,7 +16,7 @@ export default function Screener() {
   const [loading, setLoading] = useState(false);
 
   // delay function to accommodate API rate limits
-  const delay = async (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms));
+  const delay = async (ms = 300) => new Promise(resolve => setTimeout(resolve, ms));
 
   // Handle get company financials
   const handleGetFinancials = async () => {
@@ -24,7 +24,6 @@ export default function Screener() {
     try {
       for (let i = 0; i < tickers.length; i++) {
         const resp = await axios.get(`${BASE_URL}/api/v3/financial-growth/${tickers[i]}?apikey=${API_KEY}&limit=1`)
-        console.log(resp.data[0])
         if (resp.data[0].revenueGrowth > 0.30 && resp.data[0].freeCashFlowGrowth > 0.10) {
           companies.push(resp.data[0]);
         }
