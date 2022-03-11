@@ -37,7 +37,7 @@ export default function Contact() {
           <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">Contact Us</h2>
         </div>
         <div className="mt-12">
-          <form action="#" method="POST" className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+          <form action="https://script.google.com/macros/s/AKfycbwa7C8tEcSVZFj_ur04tzTrCMMPNsJ7i-r9dt7tkFkSWKn3_ZWgzOQGZ-9KIIJGfKdy8g/exec" method="POST" className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
             <div>
               <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
                 First name
