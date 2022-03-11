@@ -1,12 +1,43 @@
 import { useState } from 'react'
-import { Switch } from '@headlessui/react'
+import axios from 'axios';
+
+// HeroIcon Icons
+import { CheckCircleIcon, XIcon, XCircleIcon } from '@heroicons/react/solid'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Contact() {
-  const [agreed, setAgreed] = useState(false)
+  const [success, setSuccess] = useState(false);
+  const [errMsg, setErrMsg] = useState('');
+  const [contact, setContact] = useState({
+    firstName: '',
+    lastName: '',
+    company: '',
+    email: '',
+    message: ''
+  });
+
+  const changeHandler = e => {
+    setContact({
+      ...contact,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const onSubmit = e => {
+    e.preventDefault();
+    axios.post('https://script.google.com/macros/s/AKfycbwa7C8tEcSVZFj_ur04tzTrCMMPNsJ7i-r9dt7tkFkSWKn3_ZWgzOQGZ-9KIIJGfKdy8g/exec', {
+      first_name: contact.firstName,
+      last_name: contact.lastName,
+      company: contact.company,
+      email: contact.email,
+      message: contact.message
+    })
+    .then(setSuccess(true))
+    .catch(err => setErrMsg(err.message));
+  }
 
   return (
     <div id="contact" className="bg-slate-100 py-16 px-4 overflow-hidden sm:px-6 lg:px-8 lg:py-24">
@@ -37,15 +68,17 @@ export default function Contact() {
           <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">Contact Us</h2>
         </div>
         <div className="mt-12">
-          <form action="https://script.google.com/macros/s/AKfycbwa7C8tEcSVZFj_ur04tzTrCMMPNsJ7i-r9dt7tkFkSWKn3_ZWgzOQGZ-9KIIJGfKdy8g/exec" method="POST" className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+          <form onSubmit={onSubmit} className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
             <div>
               <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
                 First name
               </label>
               <div className="mt-1">
                 <input
+                  onChange={changeHandler}
+                  value={contact.firstName}
                   type="text"
-                  name="first-name"
+                  name="firstName"
                   id="first-name"
                   autoComplete="given-name"
                   className="py-3 px-4 block w-full shadow-sm focus:ring-slate-500 focus:border-slate-500 border-gray-300 rounded-md"
@@ -58,8 +91,10 @@ export default function Contact() {
               </label>
               <div className="mt-1">
                 <input
+                  onChange={changeHandler}
+                  value={contact.lastName}
                   type="text"
-                  name="last-name"
+                  name="lastName"
                   id="last-name"
                   autoComplete="family-name"
                   className="py-3 px-4 block w-full shadow-sm focus:ring-slate-500 focus:border-slate-500 border-gray-300 rounded-md"
@@ -72,6 +107,8 @@ export default function Contact() {
               </label>
               <div className="mt-1">
                 <input
+                  onChange={changeHandler}
+                  value={contact.company}
                   type="text"
                   name="company"
                   id="company"
@@ -86,6 +123,8 @@ export default function Contact() {
               </label>
               <div className="mt-1">
                 <input
+                  onChange={changeHandler}
+                  value={contact.email}
                   id="email"
                   name="email"
                   type="email"
@@ -100,6 +139,8 @@ export default function Contact() {
               </label>
               <div className="mt-1">
                 <textarea
+                  onChange={changeHandler}
+                  value={contact.message}
                   id="message"
                   name="message"
                   rows={4}
@@ -109,35 +150,44 @@ export default function Contact() {
               </div>
             </div>
             <div className="sm:col-span-2">
-              <div className="flex items-start">
-                <div className="flex-shrink-0">
-                  <Switch
-                    checked={agreed}
-                    onChange={setAgreed}
-                    className={classNames(
-                      agreed ? 'bg-slate-600' : 'bg-gray-200',
-                      'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500'
-                    )}
-                  >
-                    <span className="sr-only">Agree to policies</span>
-                    <span
-                      aria-hidden="true"
-                      className={classNames(
-                        agreed ? 'translate-x-5' : 'translate-x-0',
-                        'inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
-                      )}
-                    />
-                  </Switch>
-                </div>
-                <div className="ml-3">
-                  <p className="text-base text-gray-500">
-                    By selecting this, you agree to the{' '}
-                    <a href="#" className="font-medium text-gray-700 underline">
-                      Privacy Policy
-                    </a>.
-                  </p>
+              {success ?
+              <div className="rounded-md bg-green-50 p-4">
+                <div className="flex">
+                  <div className="flex-shrink-0">
+                    <CheckCircleIcon className="h-5 w-5 text-green-400" aria-hidden="true" />
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-sm font-medium text-green-800">Message Successfully Sent!</p>
+                  </div>
+                  <div className="ml-auto pl-3">
+                    <div className="-mx-1.5 -my-1.5">
+                      <button
+                        type="button"
+                        className="inline-flex bg-green-50 rounded-md p-1.5 text-green-500 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-green-50 focus:ring-green-600"
+                      >
+                        <span className="sr-only">Dismiss</span>
+                        <XIcon className="h-5 w-5" aria-hidden="true" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
+            : null}
+              {errMsg !== '' ?
+                <div className="rounded-md bg-red-50 p-4">
+                  <div className="flex">
+                    <div className="flex-shrink-0">
+                      <XCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
+                    </div>
+                    <div className="ml-3">
+                      <h3 className="text-sm font-medium text-red-800">There was an error with your submission</h3>
+                      <div className="mt-2 text-sm text-red-700">
+                        <p>{errMsg}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              : null}
             </div>
             <div className="sm:col-span-2">
               <button
