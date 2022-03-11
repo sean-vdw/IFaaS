@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { RefreshIcon } from '@heroicons/react/outline';
+import Loader from '../assets/loader.svg';
 
 // IEX Cloud Base Url & API Key
 const BASE_URL = 'https://financialmodelingprep.com';
@@ -52,14 +52,15 @@ export default function Screener() {
           </p>
         </div>
         <div className="text-lg w-full md:w-11/12 mx-auto mt-10">
-          <div className="flex justify-start mb-4">
+          <div className="flex justify-start align-middle mb-4">
             <button
               type="button"
               onClick={handleGetFinancials}
               className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
-              Update List <RefreshIcon className={`ml-2 h-5 w-5 ${loading ? 'animate-spin' : null}`} />
+              Update List
             </button>
+            { loading ? <img src={Loader} className='ml-2 my-2 h-7 w-7 animate-spin'></img> : null }
           </div>
           <div className="flex flex-col">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
