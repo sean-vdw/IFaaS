@@ -21,7 +21,8 @@ export default function Hedge() {
         </div>
         <div className="w-full md:w-11/12 mx-auto mt-10"> 
           <iframe 
-            className="w-full h-96 my-10"
+            height="600"
+            className="w-full my-10"
             src="https://app.koyfin.com/share/43d1bbd766/simple"
             frameBorder="0">
           </iframe>
