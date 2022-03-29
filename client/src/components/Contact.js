@@ -35,7 +35,7 @@ export default function Contact() {
       email: contact.email,
       message: contact.message
     })
-    .then(setSuccess(true))
+    .then(!errMsg ? setSuccess(true) : null)
     .catch(err => setErrMsg(err.message));
   }
 
