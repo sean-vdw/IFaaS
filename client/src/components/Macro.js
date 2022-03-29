@@ -17,7 +17,8 @@ export default function Macro() {
         </div>
         <div className="w-full md:w-11/12 mx-auto my-10">
           <iframe 
-            className="w-full h-80 my-10"
+            height="425"
+            className="w-full my-10"
             src="https://app.koyfin.com/share/b74c000ab3/simple"
             frameBorder="0">
           </iframe>
@@ -26,8 +27,9 @@ export default function Macro() {
           <p className="max-w-prose mt-8 mx-auto text-xl text-center text-gray-500 leading-8">
             Additionally, the widening of high-yield spreads (blue line) has coincided with stock market pullbacks - especially in small cap stocks (orange line).
           </p>
-          <iframe 
-            className="w-full h-80 my-10"
+          <iframe
+            height="425" 
+            className="w-full my-10"
             src="https://app.koyfin.com/share/7c899f8b83/simple" 
             frameBorder="0">
           </iframe>

@@ -7,7 +7,7 @@ const BASE_URL = 'https://financialmodelingprep.com';
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 // Stock tickers of interest
-const tickers = ['SPT', 'TENB', 'API', 'QLYS', 'TWOU', 'SQ', 'WDAY', 'NCNO', 'APPF', 'VMEO', 'BOX', 'ZEN', 'PLAN', 'CXM', 'FROG', 'CRM', 'ZI', 'PCTY', 'NOW', 'ADBE', 'XM', 'SQSP', 'AVLR', 'CRWD', 'CWAN', 'PYPL', 'DH', 'DOCN', 'WIX', 'BL', 'COUP', 'OKTA', 'PAYC', 'QTWO', 'AI', 'NEWR', 'DOMO', 'ESTC', 'NET', 'WK', 'RSKD', 'LAW', 'DBX', 'VTEX', 'PD', 'ENFN', 'SUMO', 'SMAR', 'ZUO', 'DDOG', 'FRSH', 'PCOR', 'TEAM', 'HUBS', 'DOCU', 'AMPL', 'VEEV', 'SHOP', 'TWLO', 'ZM', 'BILL', 'BLND', 'PATH', 'S', 'BIGC', 'ZS', 'OLO', 'FSLY', 'EVBG', 'RNG', 'SNOW', 'YEXT', 'ASAN', 'MNDY', 'CFLT', 'GTLB'];
+const tickers = ['SPT', 'TENB', 'API', 'QLYS', 'TWOU', 'SQ', 'WDAY', 'NCNO', 'APPF', 'VMEO', 'BOX', 'ZEN', 'PLAN', 'CXM', 'FROG', 'CRM', 'ZI', 'PCTY', 'NOW', 'ADBE', 'XM', 'SQSP', 'AVLR', 'CRWD', 'CWAN', 'PYPL', 'DH', 'DOCN', 'WIX', 'BL', 'COUP', 'OKTA', 'PAYC', 'QTWO', 'AI', 'NEWR', 'DOMO', 'ESTC', 'NET', 'WK', 'RSKD', 'LAW', 'DBX', 'VTEX', 'PD', 'ENFN', 'SUMO', 'SMAR', 'ZUO', 'DDOG', 'FRSH', 'PCOR', 'TEAM', 'HUBS', 'DOCU', 'AMPL', 'VEEV', 'SHOP', 'TWLO', 'ZM', 'BILL', 'BLND', 'PATH', 'S', 'BIGC', 'ZS', 'OLO', 'FSLY', 'EVBG', 'RNG', 'SNOW', 'YEXT', 'ASAN', 'MNDY', 'CFLT', 'GTLB', 'TSLA', 'ROKU', 'TDOC', 'COIN', 'ZM', 'U', 'SE', 'AAPL', 'AMZN', 'GOOGL', 'FB', 'MSFT'];
 
 // Companies and metrics to be displayed in screener table
 const companies = [];
