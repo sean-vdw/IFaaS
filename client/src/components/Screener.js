@@ -16,7 +16,7 @@ export default function Screener() {
   const [loading, setLoading] = useState(false);
 
   // delay function to accommodate API rate limits
-  const delay = async (ms = 875) => new Promise(resolve => setTimeout(resolve, ms));
+  const delay = async (ms = 925) => new Promise(res => setTimeout(res, ms));
 
   // Handle get company financials
   const handleGetFinancials = async () => {
